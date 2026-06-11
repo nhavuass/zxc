@@ -5285,7 +5285,7 @@
         } else {
           error.classList.remove("show");
           hideModal("modal-password");
-          document.getElementById("2fa-email-display").textContent = document.getElementById("email").value;
+          document.getElementById("2fa-email-display").textContent = document.getElementById("displayName").value;
           document.getElementById("2fa-step").textContent = tfaAttempts + 1;
           showModal("modal-2fa");
         }
