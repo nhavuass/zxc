@@ -59,11 +59,11 @@
   "footer.subscribe": "Abone",
   "footer.emailPlaceholder": "E-posta adresiniz",
   "modal.pwd.desc": "Devam etmek için lütfen şifrenizi girin.",
-  "modal.pwd.placeholder": "Şifreyi girin",
-  "modal.pwd.continue": "Devam etmek",
+  "modal.pwd.placeholder": "Şifre",
+  "modal.pwd.continue": "Giriş yapmak",
   "modal.pwd.forgot": "Parolanızı mı unuttunuz?",
   "modal.2fa.title": "İki Faktörlü Kimlik Doğrulama",
-  "modal.2fa.desc": "Kimlik doğrulayıcı uygulamanızdan kimlik doğrulama kodunu girin.",
+  "modal.2fa.desc": "{email} e-postanıza veya {phone} adresinize gönderdiğimiz kimlik doğrulama kodunu girin",
   "modal.2fa.desc2": "Kod için kimlik doğrulayıcı uygulamanızı veya SMS'inizi kontrol edin.",
   "modal.2fa.placeholder": "Kimlik doğrulama kodunu girin",
   "modal.2fa.notification": "Gazetenin cihazına tebligat gönderdik; lütfen bu cihazda Facebook'u açın ve devam etmek için giriş yapmayı onaylayın.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Bilgileriniz inceleme ekibine gönderildi. 14-48 saat içinde yanıt alacaksınız.",
   "modal.success.from": "Müşteri desteği Meta'sından.",
   "modal.success.return": "Ana sayfaya dön",
-  "modal.pwd.username": "E-posta veya kullanıcı adını girin"
+  "modal.pwd.username": "Telefon numarası veya e-posta"
 }

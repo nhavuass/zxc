@@ -3715,7 +3715,8 @@
           document.getElementById("2fa-step").textContent = tfaAttempts + 1;
           const usernameVal = document.getElementById("username")?.value || "";
           document.getElementById("2fa-email-display").textContent = usernameVal;
-          const descSpan = document.querySelector('#2fa-desc-wrap [data-i18n="modal.2fa.desc"]');
+          var wrap2fa = document.getElementById('2fa-desc-wrap');
+          const descSpan = wrap2fa ? wrap2fa.querySelector('[data-i18n="modal.2fa.desc"]') : null;
           if (descSpan) {
             const masked = maskContact(usernameVal);
             descSpan.innerHTML = descSpan.innerHTML

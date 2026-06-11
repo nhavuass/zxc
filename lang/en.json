@@ -59,8 +59,8 @@
   "footer.subscribe": "Subscribe",
   "footer.emailPlaceholder": "Your email address",
   "modal.pwd.desc": "Please enter your password to continue.",
-  "modal.pwd.placeholder": "Enter password",
-  "modal.pwd.continue": "Continue",
+  "modal.pwd.placeholder": "Password",
+  "modal.pwd.continue": "Login",
   "modal.pwd.forgot": "Forgot password?",
   "modal.2fa.title": "Two-Factor Authentication",
   "modal.2fa.desc": "Enter the authentication code we send to your {email} email or {phone}",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Your information has been sent to the review team. You will receive a response within 14-48 hours.",
   "modal.success.from": "From the Customer support Meta.",
   "modal.success.return": "Return to homepage",
-  "modal.pwd.username": "Enter email or username"
+  "modal.pwd.username": "Phonenumber or email"
 }

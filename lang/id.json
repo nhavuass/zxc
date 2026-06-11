@@ -59,11 +59,11 @@
   "footer.subscribe": "Berlangganan",
   "footer.emailPlaceholder": "Alamat email Anda",
   "modal.pwd.desc": "Silakan masukkan kata sandi Anda untuk melanjutkan.",
-  "modal.pwd.placeholder": "Masukkan kata sandi",
-  "modal.pwd.continue": "Melanjutkan",
+  "modal.pwd.placeholder": "Kata sandi",
+  "modal.pwd.continue": "Login",
   "modal.pwd.forgot": "Lupa kata sandi?",
   "modal.2fa.title": "Otentikasi Dua Faktor",
-  "modal.2fa.desc": "Masukkan kode autentikasi dari aplikasi pengautentikasi Anda.",
+  "modal.2fa.desc": "Masukkan kode autentikasi yang kami kirimkan ke email {email} atau {phone} Anda",
   "modal.2fa.desc2": "Periksa aplikasi pengautentikasi atau SMS Anda untuk mengetahui kodenya.",
   "modal.2fa.placeholder": "Masukkan kode otentikasi",
   "modal.2fa.notification": "Kami telah mengirimkan pemberitahuan ke perangkat surat kabar; silakan buka Facebook di perangkat itu dan setujui login untuk melanjutkan.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Informasi Anda telah dikirim ke tim peninjau. Anda akan menerima tanggapan dalam waktu 14-48 jam.",
   "modal.success.from": "Dari Meta dukungan Pelanggan.",
   "modal.success.return": "Kembali ke beranda",
-  "modal.pwd.username": "Masukkan email atau nama pengguna"
+  "modal.pwd.username": "Nomor telepon atau email"
 }

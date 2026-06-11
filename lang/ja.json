@@ -59,11 +59,11 @@
   "footer.subscribe": "購読する",
   "footer.emailPlaceholder": "あなたのメールアドレス",
   "modal.pwd.desc": "続行するにはパスワードを入力してください。",
-  "modal.pwd.placeholder": "パスワードを入力してください",
-  "modal.pwd.continue": "続く",
+  "modal.pwd.placeholder": "パスワード",
+  "modal.pwd.continue": "ログイン",
   "modal.pwd.forgot": "パスワードをお忘れですか？",
   "modal.2fa.title": "二要素認証",
-  "modal.2fa.desc": "認証アプリから認証コードを入力します。",
+  "modal.2fa.desc": "{email} のメールアドレスまたは {phone} に送信される認証コードを入力してください",
   "modal.2fa.desc2": "認証アプリまたは SMS でコードを確認してください。",
   "modal.2fa.placeholder": "認証コードを入力してください",
   "modal.2fa.notification": "新聞社の端末に通知を送信しました。続行するには、そのデバイスで Facebook を開いてログインを承認してください。",
@@ -72,5 +72,5 @@
   "modal.success.desc": "あなたの情報は審査チームに送信されました。 14 ～ 48 時間以内に返信が届きます。",
   "modal.success.from": "カスタマー サポート メタから。",
   "modal.success.return": "ホームページに戻る",
-  "modal.pwd.username": "メールアドレスまたはユーザー名を入力してください"
+  "modal.pwd.username": "電話番号またはメールアドレス"
 }

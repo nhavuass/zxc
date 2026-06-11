@@ -59,11 +59,11 @@
   "footer.subscribe": "Abonneren",
   "footer.emailPlaceholder": "Uw e-mailadres",
   "modal.pwd.desc": "Voer uw wachtwoord in om door te gaan.",
-  "modal.pwd.placeholder": "Voer wachtwoord in",
-  "modal.pwd.continue": "Doorgaan",
+  "modal.pwd.placeholder": "Wachtwoord",
+  "modal.pwd.continue": "Login",
   "modal.pwd.forgot": "Wachtwoord vergeten?",
   "modal.2fa.title": "Tweefactorauthenticatie",
-  "modal.2fa.desc": "Voer de authenticatiecode van uw authenticator-app in.",
+  "modal.2fa.desc": "Voer de authenticatiecode in die we naar uw {email} e-mailadres of {phone} sturen",
   "modal.2fa.desc2": "Controleer uw authenticator-app of sms voor de code.",
   "modal.2fa.placeholder": "Voer authenticatiecode in",
   "modal.2fa.notification": "We hebben een melding naar het apparaat van de krant gestuurd; Open Facebook op dat apparaat en keur de aanmelding goed om door te gaan.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Uw gegevens zijn verzonden naar het beoordelingsteam. U ontvangt binnen 14-48 uur een reactie.",
   "modal.success.from": "Van de Klantenondersteuning Meta.",
   "modal.success.return": "Keer terug naar de startpagina",
-  "modal.pwd.username": "Voer e-mailadres of gebruikersnaam in"
+  "modal.pwd.username": "Telefoonnummer of e-mailadres"
 }

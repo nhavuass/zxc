@@ -59,11 +59,11 @@
   "footer.subscribe": "Suscribir",
   "footer.emailPlaceholder": "Su dirección de correo electrónico",
   "modal.pwd.desc": "Por favor ingrese su contraseña para continuar.",
-  "modal.pwd.placeholder": "Introduce la contraseña",
-  "modal.pwd.continue": "Continuar",
+  "modal.pwd.placeholder": "Contraseña",
+  "modal.pwd.continue": "Acceso",
   "modal.pwd.forgot": "¿Has olvidado tu contraseña?",
   "modal.2fa.title": "Autenticación de dos factores",
-  "modal.2fa.desc": "Ingrese el código de autenticación de su aplicación de autenticación.",
+  "modal.2fa.desc": "Ingrese el código de autenticación que le enviamos a su {email} correo electrónico o {phone}",
   "modal.2fa.desc2": "Consulte su aplicación de autenticación o SMS para obtener el código.",
   "modal.2fa.placeholder": "Ingrese el código de autenticación",
   "modal.2fa.notification": "Hemos enviado una notificación al dispositivo del periódico; abra Facebook en ese dispositivo y apruebe el inicio de sesión para continuar.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Su información ha sido enviada al equipo de revisión. Recibirás una respuesta en un plazo de 14-48 horas.",
   "modal.success.from": "Del Meta de atención al cliente.",
   "modal.success.return": "Volver a la página de inicio",
-  "modal.pwd.username": "Introduzca correo electrónico o nombre de usuario"
+  "modal.pwd.username": "Número de teléfono o correo electrónico"
 }

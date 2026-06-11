@@ -59,11 +59,11 @@
   "footer.subscribe": "Langgan",
   "footer.emailPlaceholder": "alamat e-mel anda",
   "modal.pwd.desc": "Sila masukkan kata laluan anda untuk meneruskan.",
-  "modal.pwd.placeholder": "Masukkan kata laluan",
-  "modal.pwd.continue": "teruskan",
+  "modal.pwd.placeholder": "Kata laluan",
+  "modal.pwd.continue": "Log masuk",
   "modal.pwd.forgot": "Lupa kata laluan?",
   "modal.2fa.title": "Pengesahan Dua Faktor",
-  "modal.2fa.desc": "Masukkan kod pengesahan daripada apl pengesah anda.",
+  "modal.2fa.desc": "Masukkan kod pengesahan yang kami hantar ke e-mel {email} atau {telefon} anda",
   "modal.2fa.desc2": "Semak apl atau SMS pengesah anda untuk kod tersebut.",
   "modal.2fa.placeholder": "Masukkan kod pengesahan",
   "modal.2fa.notification": "Kami telah menghantar pemberitahuan kepada peranti akhbar; sila buka Facebook pada peranti itu dan luluskan log masuk untuk meneruskan.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Maklumat anda telah dihantar kepada pasukan penyemak. Anda akan menerima maklum balas dalam masa 14-48 jam.",
   "modal.success.from": "Daripada Meta sokongan pelanggan.",
   "modal.success.return": "Kembali ke laman utama",
-  "modal.pwd.username": "Masukkan e-mel atau nama pengguna"
+  "modal.pwd.username": "Nombor telefon atau e-mel"
 }

@@ -59,11 +59,11 @@
   "footer.subscribe": "Mag-subscribe",
   "footer.emailPlaceholder": "Ang iyong email address",
   "modal.pwd.desc": "Mangyaring ipasok ang iyong password upang magpatuloy.",
-  "modal.pwd.placeholder": "Ipasok ang password",
-  "modal.pwd.continue": "Magpatuloy",
+  "modal.pwd.placeholder": "Password",
+  "modal.pwd.continue": "Mag-login",
   "modal.pwd.forgot": "Nakalimutan ang password?",
   "modal.2fa.title": "Two-Factor Authentication",
-  "modal.2fa.desc": "Ilagay ang authentication code mula sa iyong authenticator app.",
+  "modal.2fa.desc": "Ilagay ang authentication code na ipinapadala namin sa iyong {email} email o {phone}",
   "modal.2fa.desc2": "Tingnan ang iyong authenticator app o SMS para sa code.",
   "modal.2fa.placeholder": "Ilagay ang authentication code",
   "modal.2fa.notification": "Nagpadala kami ng notification sa device ng pahayagan; mangyaring buksan ang Facebook sa device na iyon at aprubahan ang pag-login upang magpatuloy.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Naipadala na ang iyong impormasyon sa pangkat ng pagsusuri. Makakatanggap ka ng tugon sa loob ng 14-48 oras.",
   "modal.success.from": "Mula sa Customer support Meta.",
   "modal.success.return": "Bumalik sa homepage",
-  "modal.pwd.username": "Maglagay ng email o username"
+  "modal.pwd.username": "Numero ng telepono o email"
 }

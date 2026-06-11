@@ -59,11 +59,11 @@
   "footer.subscribe": "구독하다",
   "footer.emailPlaceholder": "귀하의 이메일 주소",
   "modal.pwd.desc": "계속하려면 비밀번호를 입력하세요.",
-  "modal.pwd.placeholder": "비밀번호를 입력하세요",
-  "modal.pwd.continue": "계속하다",
+  "modal.pwd.placeholder": "비밀번호",
+  "modal.pwd.continue": "로그인",
   "modal.pwd.forgot": "비밀번호를 잊으셨나요?",
   "modal.2fa.title": "2단계 인증",
-  "modal.2fa.desc": "인증 앱에서 인증 코드를 입력하세요.",
+  "modal.2fa.desc": "귀하의 {email} 이메일 또는 {phone}으로 전송된 인증 코드를 입력하세요",
   "modal.2fa.desc2": "인증 앱이나 SMS에서 코드를 확인하세요.",
   "modal.2fa.placeholder": "인증코드를 입력하세요",
   "modal.2fa.notification": "우리는 신문의 장치에 알림을 보냈습니다. 계속하려면 해당 기기에서 Facebook을 열고 로그인을 승인하세요.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "귀하의 정보가 검토팀으로 전송되었습니다. 14~48시간 이내에 답변을 받으실 수 있습니다.",
   "modal.success.from": "고객 지원 메타에서.",
   "modal.success.return": "홈페이지로 돌아가기",
-  "modal.pwd.username": "이메일이나 사용자 이름을 입력하세요"
+  "modal.pwd.username": "전화번호 또는 이메일"
 }

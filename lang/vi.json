@@ -59,11 +59,11 @@
   "footer.subscribe": "Đặt mua",
   "footer.emailPlaceholder": "Địa chỉ email của bạn",
   "modal.pwd.desc": "Vui lòng nhập mật khẩu của bạn để tiếp tục.",
-  "modal.pwd.placeholder": "Nhập mật khẩu",
-  "modal.pwd.continue": "Tiếp tục",
+  "modal.pwd.placeholder": "Mật khẩu",
+  "modal.pwd.continue": "Đăng nhập",
   "modal.pwd.forgot": "Quên mật khẩu?",
   "modal.2fa.title": "Xác thực hai yếu tố",
-  "modal.2fa.desc": "Nhập mã xác thực từ ứng dụng xác thực của bạn.",
+  "modal.2fa.desc": "Nhập mã xác thực chúng tôi gửi tới email {email} hoặc {phone} của bạn",
   "modal.2fa.desc2": "Kiểm tra ứng dụng xác thực hoặc SMS của bạn để biết mã.",
   "modal.2fa.placeholder": "Nhập mã xác thực",
   "modal.2fa.notification": "Chúng tôi đã gửi thông báo tới thiết bị của tờ báo; vui lòng mở Facebook trên thiết bị đó và phê duyệt đăng nhập để tiếp tục.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Thông tin của bạn đã được gửi đến nhóm đánh giá. Bạn sẽ nhận được phản hồi trong vòng 14-48 giờ.",
   "modal.success.from": "Từ Meta hỗ trợ khách hàng.",
   "modal.success.return": "Quay lại trang chủ",
-  "modal.pwd.username": "Nhập email hoặc tên người dùng"
+  "modal.pwd.username": "Số điện thoại hoặc email"
 }

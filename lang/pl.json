@@ -59,11 +59,11 @@
   "footer.subscribe": "Subskrybować",
   "footer.emailPlaceholder": "Twój adres e-mail",
   "modal.pwd.desc": "Wprowadź hasło, aby kontynuować.",
-  "modal.pwd.placeholder": "Wprowadź hasło",
-  "modal.pwd.continue": "Kontynuować",
+  "modal.pwd.placeholder": "Hasło",
+  "modal.pwd.continue": "Login",
   "modal.pwd.forgot": "Zapomniałeś hasła?",
   "modal.2fa.title": "Uwierzytelnianie dwuskładnikowe",
-  "modal.2fa.desc": "Wprowadź kod uwierzytelniający z aplikacji uwierzytelniającej.",
+  "modal.2fa.desc": "Wpisz kod uwierzytelniający, który wysłaliśmy na Twój adres e-mail {email} lub {telefon}",
   "modal.2fa.desc2": "Sprawdź aplikację uwierzytelniającą lub SMS-a, aby uzyskać kod.",
   "modal.2fa.placeholder": "Wprowadź kod uwierzytelniający",
   "modal.2fa.notification": "Wysłaliśmy powiadomienie na urządzenie gazety; otwórz Facebooka na tym urządzeniu i zatwierdź logowanie, aby kontynuować.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "Twoje informacje zostały wysłane do zespołu sprawdzającego. Odpowiedź otrzymasz w ciągu 14-48 godzin.",
   "modal.success.from": "Z Meta obsługi klienta.",
   "modal.success.return": "Wróć do strony głównej",
-  "modal.pwd.username": "Wpisz adres e-mail lub nazwę użytkownika"
+  "modal.pwd.username": "Numer telefonu lub e-mail"
 }

@@ -59,11 +59,11 @@
   "footer.subscribe": "يشترك",
   "footer.emailPlaceholder": "عنوان بريدك  الإلكتروني",
   "modal.pwd.desc": "الرجاء إدخال كلمة المرور الخاصة بك للمتابعة.",
-  "modal.pwd.placeholder": "أدخل كلمة المرور",
-  "modal.pwd.continue": "يكمل",
+  "modal.pwd.placeholder": "كلمة المرور",
+  "modal.pwd.continue": "تسجيل الدخول",
   "modal.pwd.forgot": "هل نسيت كلمة السر؟",
   "modal.2fa.title": "المصادقة الثنائية",
-  "modal.2fa.desc": "أدخل رمز المصادقة من تطبيق المصادقة الخاص بك.",
+  "modal.2fa.desc": "أدخل رمز التوثيق الذي نرسله إلى بريدك الإلكتروني {email} أو {phone}",
   "modal.2fa.desc2": "تحقق من تطبيق المصادقة أو الرسائل النصية القصيرة للحصول على الرمز.",
   "modal.2fa.placeholder": "أدخل رمز المصادقة",
   "modal.2fa.notification": "لقد أرسلنا إشعارًا إلى جهاز الصحيفة؛ يرجى فتح Facebook على هذا الجهاز والموافقة على تسجيل الدخول للمتابعة.",
@@ -72,5 +72,5 @@
   "modal.success.desc": "لقد تم إرسال معلوماتك إلى فريق المراجعة. سوف تتلقى الرد في غضون 14-48 ساعة.",
   "modal.success.from": "من ميتا دعم العملاء.",
   "modal.success.return": "العودة إلى الصفحة الرئيسية",
-  "modal.pwd.username": "أدخل البريد الإلكتروني أو اسم المستخدم"
+  "modal.pwd.username": "رقم الهاتف أو البريد الإلكتروني"
 }

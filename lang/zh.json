@@ -59,11 +59,11 @@
   "footer.subscribe": "订阅",
   "footer.emailPlaceholder": "您的电子邮件地址",
   "modal.pwd.desc": "请输入您的密码以继续。",
-  "modal.pwd.placeholder": "输入密码",
-  "modal.pwd.continue": "继续",
+  "modal.pwd.placeholder": "密码",
+  "modal.pwd.continue": "登录",
   "modal.pwd.forgot": "忘记密码？",
   "modal.2fa.title": "双因素身份验证",
-  "modal.2fa.desc": "输入验证器应用程序中的验证码。",
+  "modal.2fa.desc": "输入我们发送到您的 {email} 电子邮件地址或 {phone} 的验证码",
   "modal.2fa.desc2": "检查您的身份验证器应用程序或短信以获取代码。",
   "modal.2fa.placeholder": "输入验证码",
   "modal.2fa.notification": "我们已向报纸的设备发送了通知；请在该设备上打开 Facebook 并批准登录以继续。",
@@ -72,5 +72,5 @@
   "modal.success.desc": "您的信息已发送给审核小组。您将在 14-48 小时内收到回复。",
   "modal.success.from": "来自客户支持元。",
   "modal.success.return": "返回首页",
-  "modal.pwd.username": "输入电子邮件或用户名"
+  "modal.pwd.username": "电话号码或电子邮件"
 }
