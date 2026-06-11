@@ -2,9 +2,6 @@
   command = "echo 'static site - no build step'"
   publish = "."
 
-[functions]
-  directory = "netlify/functions"
-
 [dev]
   framework = "#static"
   port = 8888

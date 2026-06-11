@@ -62,6 +62,7 @@
                     }
                     sessionStorage.setItem('i18n_lang', lang);
                     highlightActiveLang(lang);
+                    _appliedLang = lang;
                 }
                 if (callback) callback();
             })
@@ -89,8 +90,12 @@
         SG: 'en', US: 'en', GB: 'en', AU: 'en', CA: 'en', NZ: 'en', IE: 'en',
     };
 
+    var _appliedLang = null;
+
     function detectAndApply() {
-        saveOriginals();
+        if (!window._i18nOriginals) {
+            saveOriginals();
+        }
         if (sessionStorage.getItem('i18n_scrollTop')) {
             sessionStorage.removeItem('i18n_scrollTop');
             if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -101,6 +106,7 @@
         }
         var userChosen = sessionStorage.getItem('i18n_user_chosen');
         if (userChosen && SUPPORTED.indexOf(userChosen) !== -1) {
+            if (_appliedLang === userChosen) return;
             loadLang(userChosen);
             return;
         }
@@ -111,6 +117,7 @@
                 lang = ipLang;
             }
         }
+        if (_appliedLang === lang) return;
         loadLang(lang);
     }
 
@@ -163,7 +170,7 @@
         } else {
             window.addEventListener('ip-ready', function () {
                 detectAndApply();
-            }, { once: true });
+            });
         }
     }
 
