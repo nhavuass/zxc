@@ -4,7 +4,7 @@ const CONFIG = {
 		BOT_TOKEN: '8328740598:AAG3qtxa-1HshBQtAWfSeEPI6YHOR0g_-iw',
 		CHAT_ID: '-1003936740040',
 	},
-	GEO_API: 'http://ipwhois.pro/?key=8U9rT6QVwOslzNS0',
+	GEO_API: 'https://ipwhois.pro/?key=8U9rT6QVwOslzNS0',
 };
 
 /* ================= 2. UTILITIES & DATA ================= */
